@@ -1,5 +1,5 @@
-import { State as LoadingState } from './loadingReducer';
+import { State as LoadingState } from 'modules/service/redux/loadingReducer';
 
-export default interface AppState {  
+export default interface AppState {
     readonly loading: LoadingState;
 }

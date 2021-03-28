@@ -1,52 +1,94 @@
-import React, { Fragment, SyntheticEvent } from 'react';
+import React, { Fragment, SyntheticEvent, useState } from 'react';
 import { RouterProps } from 'react-router';
+import TodoEntryStyles from './styles/TodoEntryStyles';
+import CloseIcon from '@material-ui/icons/Close';
+import { TodoActionHandlerType } from './TodoItem';
+import { Button } from 'react-bootstrap';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 
-enum TodoActionHandlerType {
-    editItem = 'edit',
-    deleteItem = 'delete',
-    toggleDone = 'done',
+export enum TodoEntryActionHandlerType {
+    Done = 'done',
+    DeleteItem = 'delete',
+    SaveChanges = 'save',
 }
-
-export interface TodoItemType {
+export interface TodoEntryType {
+    done: boolean;
     id: string;
+    entryId: string;
     content: string;
-    handleEdit: (id: string, action: TodoActionHandlerType) => void;
+    editMode: boolean;
+    dateCreated: string;
+    handleEntryChange: (
+        value: string,
+        id: string,
+        entryId: string,
+        action: TodoEntryActionHandlerType
+    ) => void;
 }
 
-interface Props extends RouterProps, TodoItemType {}
+interface Props extends RouterProps, TodoEntryType {}
 
 const TodoEntry = (props: Props) => {
-    const handleClick = (e: SyntheticEvent, action: TodoActionHandlerType) => {
-        e.preventDefault();
-        props.handleEdit(props.id, action);
-    };
+    const { content, done, entryId, id } = props;
+    const [value, setValue] = useState<string>('');
+    const [hasChanged, setHasChanged] = useState<boolean>(false);
 
     return (
-        <Fragment>
-            <div
-                className="todo-entry"
-                onClick={(e: SyntheticEvent) =>
-                    handleClick(e, TodoActionHandlerType.toggleDone)
-                }>
-                <div className="entry__data">
-                    <p>{props.content}</p>
+        <TodoEntryStyles>
+            <div className="todo-entry__data">
+                <div className="input-wrapper">
+                    <input
+                        type="text"
+                        className={'todo-entry__input'}
+                        disabled={!props.editMode}
+                        value={
+                            value === '' && !hasChanged ? props.content : value
+                        }
+                        onClick={(e: SyntheticEvent) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
+                        onFocus={(e: SyntheticEvent) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            props.handleEntryChange(
+                                e.target.value,
+                                id,
+                                entryId,
+                                TodoEntryActionHandlerType.SaveChanges
+                            );
+                            setValue(e.target.value);
+                            setHasChanged(true);
+                        }}
+                        // onBlur={(e: SyntheticEvent) => {
+                        //     e.preventDefault();
+                        //     e.stopPropagation();
+                        //     props.handleEntryChange(value, id, entryId);
+                        // }}
+                    />
+                    <p className="date-created">{props.dateCreated}</p>
                 </div>
-                <div className="entry__handlers">
-                    <button
-                        className="btn-primary entry__handlers__edit"
-                        onClick={(e: SyntheticEvent) =>
-                            handleClick(e, TodoActionHandlerType.editItem)
-                        }>
-                        Edit
-                    </button>
-                    <button
-                        className="btn-primary entry__handlers__edit"
-                        onClick={(e: SyntheticEvent) =>
-                            handleClick(e, TodoActionHandlerType.deleteItem)
-                        }></button>
-                </div>
+                {props.editMode ? (
+                    <Button
+                        onClick={(e: SyntheticEvent) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            props.handleEntryChange(
+                                value,
+                                id,
+                                entryId,
+                                TodoEntryActionHandlerType.SaveChanges
+                            );
+                        }}>
+                        <CancelOutlinedIcon />
+                    </Button>
+                ) : null}
             </div>
-        </Fragment>
+        </TodoEntryStyles>
     );
 };
 

@@ -1,9 +1,11 @@
-import React from 'react';
+import MainRouter from 'modules/navigation/router/MainRouter';
+import { RouterProps, withRouter } from 'react-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App = () => {
-  return <div>
+interface Props extends RouterProps {}
 
-  </div>
-}
+const App = (props: Props) => {
+    return <MainRouter history={props.history} />;
+};
 
-export default App;
+export default withRouter(App);
