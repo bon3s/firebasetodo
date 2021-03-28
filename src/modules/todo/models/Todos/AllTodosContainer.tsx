@@ -2,7 +2,7 @@ import { TodoEntryActionHandlerType } from 'modules/todo/components/TodoEntry';
 import TodoItem, {
     TodoActionHandlerType,
 } from 'modules/todo/components/TodoItem';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { RouterProps } from 'react-router';
 import AllTodosScreen from './AllTodosScreen';
 import moment from 'moment';
@@ -16,14 +16,24 @@ const AllTodosContainer = (props: Props) => {
         setClock(moment().format('hh:mm:ss'));
     }, 1000);
 
+    useEffect(() => {
+        return () => clearInterval(currentTime);
+    });
+
     const handleItemEdit = (id: string, action: TodoActionHandlerType) => {
         switch (action) {
             case 'save':
                 setEditMode('');
                 break;
+
             case 'edit':
                 setEditMode(id);
                 break;
+
+            case 'delete':
+                handleItemDelete(id);
+                break;
+
             default:
                 break;
         }
@@ -47,11 +57,16 @@ const AllTodosContainer = (props: Props) => {
         }
     };
 
+    const handleItemDelete = (id: string) => {
+        console.log('delete', id);
+    };
+
     const handleDone = (id: string, entryId: string) => {
         console.log('done', id, entryId);
     };
 
-    const handleAddEntry = () => {
+    const handleAddEntry = (id: string) => {
+        setEditMode(id);
         console.log('addnewentry');
     };
 

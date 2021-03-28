@@ -21,7 +21,7 @@ interface Props extends RouterProps {
         entryId: string,
         action: TodoEntryActionHandlerType
     ) => void;
-    handleAddEntry: () => void;
+    handleAddEntry: (id: string) => void;
 }
 
 const AllTodosScreen = (props: Props) => {
@@ -35,13 +35,6 @@ const AllTodosScreen = (props: Props) => {
             handleAddEntry={props.handleAddEntry}
             editingMode={props.editingMode === 'abc123'}
             id="abc123"
-            style={{
-                // background:
-                //     theme.itemColors[
-                //         Math.floor(Math.random() * theme.itemColors.length)
-                //     ],
-                transform: getRotate(),
-            }}
             history={props.history}
             items={[
                 {
@@ -66,13 +59,6 @@ const AllTodosScreen = (props: Props) => {
         />,
         <TodoItem
             title="nekititle2"
-            style={{
-                // background:
-                // theme.itemColors[
-                //     Math.floor(Math.random() * theme.itemColors.length)
-                // ],
-                transform: getRotate(),
-            }}
             handleEdit={props.handleEdit}
             handleEntryChange={props.handleEntryChange}
             handleAddEntry={props.handleAddEntry}

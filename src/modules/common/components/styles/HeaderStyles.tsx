@@ -11,11 +11,11 @@ export const HeaderStyles = styled.div`
 
             h1 {
                 color: #fff;
-                font-family: 'Train One', cursive;
+                font-family: 'Lobster', cursive;
                 display: inline-block;
                 font-weight: 600;
-                color: ${theme.colors.darkblue};
-                font-size: 26px;
+                color: ${theme.colors.pastelblue};
+                font-size: 36px;
             }
             img {
                 width: 100px;

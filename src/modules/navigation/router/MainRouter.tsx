@@ -3,14 +3,19 @@ import { Switch, Route, RouterProps, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import AllTodosContainer from 'modules/todo/models/Todos/AllTodosContainer';
 import AppState from 'storage/AppState';
-interface Props extends RouterProps {
-    
-}
+import LoginContainer from 'modules/authentication/models/Login/LoginContainer';
+interface Props extends RouterProps {}
 
 const Router = (props: Props) => {
     return (
         <Switch>
-            <Route exact path="/" render={(props)=><AllTodosContainer history={props.history}/>} />
+            {/* <Route exact path="/" render={(props)=><AllTodosContainer history={props.history}/>} /> */}
+            <Route
+                exact
+                path="/"
+                render={(props) => <LoginContainer history={props.history} />}
+            />
+
             {/* <Route
                 exact
                 path="/todo/:id"
@@ -23,8 +28,6 @@ const Router = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState) => {
-    return {
-        
-    };
+    return {};
 };
 export default connect(mapStateToProps)(Router);

@@ -24,7 +24,7 @@ interface Props extends RouterProps {
         entryId: string,
         action: TodoEntryActionHandlerType
     ) => void;
-    handleAddEntry: () => void;
+    handleAddEntry: (id: string) => void;
 }
 
 export enum TodoActionHandlerType {
@@ -106,7 +106,12 @@ const TodoItem = (props: Props) => {
                     })}
                 </Card.Body>
                 <Card.Footer>
-                    <Button onClick={() => props.handleAddEntry()}>
+                    <Button
+                        onClick={(e: SyntheticEvent) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            props.handleAddEntry(id);
+                        }}>
                         <AddCircleOutlineOutlinedIcon fontSize="large" />
                     </Button>
                 </Card.Footer>
