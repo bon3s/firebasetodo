@@ -13,7 +13,7 @@ const AllTodosContainer = (props: Props) => {
     const [clock, setClock] = useState('');
 
     const currentTime = setInterval(() => {
-        setClock(moment().format('hh:mm:ss'));
+        setClock(moment().format('H:MM:ss'));
     }, 1000);
 
     useEffect(() => {

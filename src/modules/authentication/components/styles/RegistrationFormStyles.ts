@@ -1,14 +1,21 @@
 import theme from 'modules/common/general/theme';
-import { Card, Form } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const LoginFormStyles = styled(Card)`
+const RegistrationFormStyles = styled(Card)`
     padding: 30px;
     max-width: 500px;
     margin: 50px auto 0;
 
     form {
+        h4 {
+            margin: 20px 0;
+        }
+
         .form-group {
+            .form-label {
+                font-size: 14px;
+            }
             .form-control {
                 &:hover,
                 &:focus,
@@ -19,10 +26,10 @@ const LoginFormStyles = styled(Card)`
                 }
             }
         }
-        h4 {
-            font-size: 22px;
-            margin: 30px 0 0;
+
+        .btn {
         }
     }
 `;
-export default LoginFormStyles;
+
+export default RegistrationFormStyles;

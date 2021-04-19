@@ -1,4 +1,5 @@
 import { Button } from '@material-ui/core';
+import GeneralButton from 'modules/common/components/styles/ButtonStyles';
 import { Col, Form } from 'react-bootstrap';
 
 const LoginForm = () => {
@@ -18,13 +19,13 @@ const LoginForm = () => {
             </Form.Group>
             <Form.Row className="text-center">
                 <Col>
-                    <Button className="btn" type="submit">
+                    <GeneralButton className="btn" type="submit">
                         Sign In
-                    </Button>
+                    </GeneralButton>
                     <h4>Don't have an account yet ?</h4>
-                    <Button className="btn register" type="submit">
+                    <GeneralButton className="btn--register" type="submit">
                         Sign Up
-                    </Button>
+                    </GeneralButton>
                 </Col>
             </Form.Row>
         </Form>
