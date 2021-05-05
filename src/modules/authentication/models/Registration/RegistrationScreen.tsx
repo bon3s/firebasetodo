@@ -1,11 +1,13 @@
-import RegistrationForm from 'modules/authentication/components/RegistrationForm';
+import RegistrationForm, {
+    SubmitRegistrationType,
+} from 'modules/authentication/components/RegistrationForm';
 import ScreenWrapper from 'modules/common/components/ScreenWrapper';
-import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { RouterProps } from 'react-router';
-import RegistrationFormStyles from 'modules/authentication/components/styles/RegistrationFormStyles';
 
-interface Props extends RouterProps {}
+interface Props extends RouterProps {
+    handleSubmit: (value: SubmitRegistrationType) => void;
+}
 
 const RegistrationScreen = (props: Props) => {
     return (
@@ -13,7 +15,10 @@ const RegistrationScreen = (props: Props) => {
             <Container>
                 <Row>
                     <Col>
-                        <RegistrationForm />
+                        <RegistrationForm
+                            history={props.history}
+                            handleSubmit={props.handleSubmit}
+                        />
                     </Col>
                 </Row>
             </Container>
